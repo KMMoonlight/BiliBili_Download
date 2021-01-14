@@ -26,6 +26,8 @@ def download_video_for_peer(url, title, bvid, size):
     page = int(size / (1024 * 1024 * 4))
     peer = int(size / page)
     result = []
+    print("开始下载视频---" + title)
+    print("0%")
     for i in range(page):
         if i == 0:
             start = "0"
@@ -49,21 +51,33 @@ def download_video_for_peer(url, title, bvid, size):
             "Range": "bytes=" + start + "-" + end,
         }
         success = save(title, url, header, (i+1), result)
+        
+        content = ''
+        
+        if i != page - 1 :
+            for j in range(round((i+1) / page * 100)):
+                content += '='
+            content += '>'
+            content += str(round((i+1) / page * 100,2)) + "%" 
+        else:
+            for j in range(100):
+                content += '='
+            content += '>'
+            content += '|100%'
+        print(content)
         if success == False:
             return success
     for data in result:
         with open('./video/' + title + "/" + title + ".flv", 'ab') as f:
             f.write(data)
-    print(title + "---视频组合完成")
+    print(title + "---视频下载完成")
     return True
 
 
 def save(title, url, header, peer, result):
-    print("开始下载视频---" + title + "第" + str(peer) + "片")
     try:
         r = home.my_session.get(url, headers=header, stream=True, cookies=utils.common_cookies)
         if r.status_code == 200 or r.status_code == 206:
-            print("视频下载完成----" + title + "第" + str(peer) + "片")
             result.append(r.content)
             return True
         else:
