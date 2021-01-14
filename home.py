@@ -34,11 +34,11 @@ def parse_video_list():
 
 if __name__ == "__main__":
     my_session.get("https://www.bilibili.com/", headers=header, cookies=utils.common_cookies)
-    parse_video_list()
+    #parse_video_list()
     #要下载单个视频的话，实际调用下面的方法即可
-    #aid = ''
-    #bid = ''
-    #title = ''
-    #if not os.path.exists('./video/' + title):
-    #   os.makedirs('./video' + title)
-    #parse.get_video_cid(aid, title, bid)
+    bid = '12b411P7vk'
+    aid = utils.BvToAv(bid)
+    title = 'CombineBox'
+    if not os.path.exists('./video/' + title):
+      os.makedirs('./video/' + title)
+    parse.get_video_cid(aid, title, bid)
