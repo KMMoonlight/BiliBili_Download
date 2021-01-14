@@ -3,24 +3,12 @@ import math
 common_headers = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36"
 
 common_cookies = {
-    "_uuid": "",
     "bili_jct": "",
-    "bp_t_offset_7062626": "",
-    "buvid3": "",
-    "CURRENT_FNVAL": "",
-    "CURRENT_QUALITY": "",
     "DedeUserID": "",
-    "DedeUserID__ckMd5": "",
-    "LIVE_BUVID": "",
-    "PVID": "",
-    "rpdid": "",
-    "SESSDATA": "",
-    "sid": ""
+    "SESSDATA": ""
 }
 
-def BvToAv(Bv):
-    # 1.去除Bv号前的"Bv"字符
-    BvNo1 = Bv[2:]
+def BvToAv(BvNo1):
     keys = {
         '1':'13', '2':'12', '3':'46', '4':'31', '5':'43', '6':'18', '7':'40', '8':'28', '9':'5',
         'A':'54', 'B':'20', 'C':'15', 'D':'8', 'E':'39', 'F':'57', 'G':'45', 'H':'36', 'J':'38', 'K':'51', 'L':'42', 'M':'49', 'N':'52', 'P':'53', 'Q':'7', 'R':'4', 'S':'9', 'T':'50', 'U':'10', 'V':'44', 'W':'34', 'X':'6', 'Y':'25', 'Z':'1',
@@ -55,4 +43,4 @@ def BvToAv(Bv):
     # 6. 将sum 与177451812进行异或
     temp = 177451812
 
-    return sum ^ temp
+    return str(sum ^ temp)
