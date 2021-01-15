@@ -27,7 +27,7 @@ def download_video_for_peer(url, title, bvid, size):
     peer = int(size / page)
     result = []
     print("开始下载视频---" + title)
-    print("0%")
+    print("0%", end='\r')
     for i in range(page):
         if i == 0:
             start = "0"
@@ -51,25 +51,26 @@ def download_video_for_peer(url, title, bvid, size):
             "Range": "bytes=" + start + "-" + end,
         }
         success = save(title, url, header, (i+1), result)
-        
+
         content = ''
-        
+
         if i != page - 1 :
             for j in range(round((i+1) / page * 100)):
-                content += '='
+                content += '#'
             content += '>'
-            content += str(round((i+1) / page * 100,2)) + "%" 
+            content += str(round((i+1) / page * 100,2)) + "%"
         else:
             for j in range(100):
-                content += '='
+                content += '#'
             content += '>'
             content += '|100%'
-        print(content)
+        print(content, end="\r")
         if success == False:
             return success
     for data in result:
         with open('./video/' + title + "/" + title + ".flv", 'ab') as f:
             f.write(data)
+    print("")
     print(title + "---视频下载完成")
     return True
 
